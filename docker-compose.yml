@@ -47,17 +47,17 @@ services:
     networks:
       - postgres_conn
     volumes:
-      - .:/tileset
-      - ./data:/import
-      - ./build/sql:/sql
-      - ./build:/mapping
+      - /srv/osm-data:/tileset
+      - /srv/osm-data:/import
+      - /srv/osm-data/build/sql:/sql
+      - /srv/osm-data/build:/mapping
       - ./cache:/cache
 
   generate-changed-vectortiles:
     image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
     command: ./export-list.sh
     volumes:
-      - ./data:/export
+      - /srv/osm-data:/export
       - ./build/openmaptiles.tm2source:/tm2source
     networks:
       - postgres_conn
@@ -69,7 +69,7 @@ services:
   generate-vectortiles:
     image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
     volumes:
-      - ./data:/export
+      - /srv/osm-data:/export
       - ./build/openmaptiles.tm2source:/tm2source
     networks:
       - postgres_conn
@@ -90,4 +90,4 @@ services:
     ports:
       - "${PPORT:-8090}:${PPORT:-8090}"
     volumes:
-      - .:/tileset
+      - /srv/osm-data:/tileset
