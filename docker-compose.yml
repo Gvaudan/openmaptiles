@@ -49,8 +49,8 @@ services:
     volumes:
       - /srv/osm-data:/tileset
       - /srv/osm-data:/import
-      - /srv/osm-data/build/sql:/sql
-      - /srv/osm-data/build:/mapping
+      - /srv/osm-data/mapping:/mapping
+      - ./build/sql:/sql
       - ./cache:/cache
 
   generate-changed-vectortiles:
